@@ -1,5 +1,4 @@
 import main.java.CourierProfile;
-
 import io.qameta.allure.junit4.DisplayName;
 import io.restassured.RestAssured;
 import io.restassured.path.json.JsonPath;
@@ -73,7 +72,30 @@ public class CourierCreateTest {
                 .and()
                 .body("message", equalTo("Недостаточно данных для создания учетной записи"));
     }
-
-//    =================================
-
+    @Test
+    @DisplayName("Создание двух одинаковых курьеров")
+    @Description("/api/v1/courier post: login, password, firstName")
+    public void createCourierWithSameLoginAndCheckResponse(){
+        CourierProfile courierCreate  = new CourierProfile(loginTest, passwordTest, firstNameTest);
+// Проверяем, что курьер создан:
+        given()
+                .header("Content-type", "application/json")
+                .and()
+                .body(courierCreate)
+                .when()
+                .post(endPointCreate)
+                .then().assertThat().statusCode(201)
+                .and()
+                .body("ok", equalTo(true));
+// Проверяем, что нельзя создать такого же курьера:
+        given()
+                .header("Content-type", "application/json")
+                .and()
+                .body(courierCreate)
+                .when()
+                .post(endPointCreate)
+                .then().assertThat().statusCode(409)
+                .and()
+                .body("message", equalTo("Этот логин уже используется")); // Actual: Этот логин уже используется. Попробуйте другой.
+    }
 }
