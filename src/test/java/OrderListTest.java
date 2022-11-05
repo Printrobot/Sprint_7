@@ -16,7 +16,7 @@ public class OrderListTest {
     }
 
     @Test
-    @DisplayName("Проверяем получение списка заказов: не пустой, код 200")
+    @DisplayName("РџСЂРѕРІРµСЂСЏРµРј РїРѕР»СѓС‡РµРЅРёРµ СЃРїРёСЃРєР° Р·Р°РєР°Р·РѕРІ: РЅРµ РїСѓСЃС‚РѕР№, РєРѕРґ 200")
     @Description("get(/api/v1/orders)")
     public void checkStatusCodeAndOrderListNotNull() {
         given()

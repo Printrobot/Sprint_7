@@ -55,7 +55,8 @@ import org.junit.Test;
         }
 
         @Test
-        @DisplayName("Можно указать один из цветов, оба цвета, без цвета, получить track")
+        @DisplayName("РњРѕР¶РЅРѕ СѓРєР°Р·Р°С‚СЊ РѕРґРёРЅ РёР· С†РІРµС‚РѕРІ, РѕР±Р° С†РІРµС‚Р°, Р±РµР· С†РІРµС‚Р°, РїРѕР»СѓС‡РёС‚СЊ track")
+        // РџРѕСЃР»Рµ С‚РµСЃС‚Р° СѓРґР°Р»РёС‚СЊ СЌС‚РѕС‚ Р·Р°РєР°Р·
         @Description("/api/v1/courier/login post: Parameterized color")
         public void createOrderTest() {
             Order order = new Order(firstName, lastName, address, metroStation, phone, rentTime, deliveryDate, comment, color);
@@ -73,6 +74,6 @@ import org.junit.Test;
 
             String responseAsString = response.asString();
             JsonPath jsonPath = new JsonPath(responseAsString);
-            track = jsonPath.getInt("track"); // После теста удалить этот заказ
+            track = jsonPath.getInt("track");
         }
 }

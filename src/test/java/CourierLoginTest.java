@@ -75,7 +75,8 @@ public class CourierLoginTest {
 
     @Test
     @DisplayName("Для авторизации нужно передать все поля. Нет пароля.")
-    @Description("/api/v1/courier/login post: нет пароля")
+    // Expected status code <400> but was <504>
+    @Description("/api/v1/courier/login post: password null")
     public  void loginCourierWithoutPassword() {
         CourierProfile courierCreate  = new CourierProfile(loginTest, "");
         given()
@@ -84,13 +85,14 @@ public class CourierLoginTest {
                 .post(endPointLogin)
                 .then()
                 .assertThat()
-                .statusCode(400) // Expected status code <400> but was <504>
+                .statusCode(400)
                 .and()
                 .body("message", equalTo("Недостаточно данных для входа")); //Service unavailable
     }
     @Test
     @DisplayName("Ошибка, если неправильный пароль.")
-    @Description("/api/v1/courier/login post: неправильный пароль")
+    // Expected status code <404> but was <504>
+    @Description("/api/v1/courier/login post: wrong password")
     public  void loginCourierWithWrongPassword() {
         CourierProfile courierCreate  = new CourierProfile(loginTest, passwordTest + "mistake");
         given()
@@ -99,13 +101,14 @@ public class CourierLoginTest {
                 .post(endPointLogin)
                 .then()
                 .assertThat()
-                .statusCode(404) // Expected status code <404> but was <504>
+                .statusCode(404)
                 .and()
                 .body("message", equalTo("Учетная запись не найдена"));
     }
     @Test
     @DisplayName("Ошибка, если неправильный логин.")
-    @Description("/api/v1/courier/login post: неправильный логин")
+    // Expected status code <404> but was <504>
+    @Description("/api/v1/courier/login post: wrong login")
     public  void loginCourierWithWrongLogin() {
         CourierProfile courierCreate  = new CourierProfile(loginTest + "mistake", passwordTest);
         given()
@@ -114,13 +117,14 @@ public class CourierLoginTest {
                 .post(endPointLogin)
                 .then()
                 .assertThat()
-                .statusCode(404) // Expected status code <404> but was <504>
+                .statusCode(404)
                 .and()
                 .body("message", equalTo("Учетная запись не найдена"));
     }
     @Test
     @DisplayName("Ошибка, если несуществующий логин и пароль.")
-    @Description("/api/v1/courier/login post: неправильный логин и пароль")
+    // Expected status code <404> but was <504>
+    @Description("/api/v1/courier/login post: wrong login and password")
     public  void loginCourierWithWrongLoginAndPassword() {
         CourierProfile courierCreate  = new CourierProfile(loginTest + "mistake", passwordTest + "mistake");
         given()
@@ -129,7 +133,7 @@ public class CourierLoginTest {
                 .post(endPointLogin)
                 .then()
                 .assertThat()
-                .statusCode(404) // Expected status code <404> but was <504>
+                .statusCode(404)
                 .and()
                 .body("message", equalTo("Учетная запись не найдена"));
     }
