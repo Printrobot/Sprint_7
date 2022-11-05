@@ -2,7 +2,6 @@ import io.qameta.allure.junit4.DisplayName;
 import io.restassured.RestAssured;
 import io.restassured.path.json.JsonPath;
 import jdk.jfr.Description;
-import main.java.CourierProfile;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.After;
 import org.junit.Before;
@@ -14,9 +13,12 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.notNullValue;
 
 public class CourierLoginTest {
+
     static private String loginTest = RandomStringUtils.randomAlphabetic(10);
     static private String passwordTest = "09209309";
     static private String firstNameTest = "Alex";
+// API docs:
+// https://qa-scooter.praktikum-services.ru/docs/#api-Courier-Login
     static private String endPointCreate = "/api/v1/courier";
     static private String endPointLogin = "/api/v1/courier/login";
     static private String endPointDelete = "/api/v1/courier/";
@@ -35,7 +37,6 @@ public class CourierLoginTest {
                 .then().assertThat().statusCode(201)
                 .and()
                 .body("ok", equalTo(true));
-        System.out.println("loginTest - " + loginTest);
     }
 
     @After
@@ -52,7 +53,6 @@ public class CourierLoginTest {
 
         JsonPath jsonPath = new JsonPath(response);
         String userId = jsonPath.getString("id");
-        System.out.println("userId - " + userId);
         delete(endPointDelete + userId);
     }
 

@@ -1,4 +1,3 @@
-import main.java.CourierProfile;
 import io.qameta.allure.junit4.DisplayName;
 import io.restassured.RestAssured;
 import io.restassured.path.json.JsonPath;
@@ -21,7 +20,6 @@ public class CourierCreateTest {
     @Before
     public void setUp() {
         RestAssured.baseURI = "http://qa-scooter.praktikum-services.ru/";
-        System.out.println("loginTest - " + loginTest);
     }
 
     @After
@@ -37,7 +35,6 @@ public class CourierCreateTest {
 
         JsonPath jsonPath = new JsonPath(response);
         String userId = jsonPath.getString("id");
-        System.out.println("userId - " + userId);
         delete(endPointDelete + userId);
     }
 
